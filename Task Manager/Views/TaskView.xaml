@@ -1,0 +1,61 @@
+﻿<Window x:Class="Task_Manager.Views.TaskView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Task_Manager.Views"
+        mc:Ignorable="d"
+        Title="TaskView" Height="650" Width="1150">
+    <Window.Resources>
+        <Style x:Key="NEAstyle" TargetType="Button">
+            <Setter Property="Height" Value="50"></Setter>
+            <Setter Property="Width" Value="150"></Setter>
+            <Setter Property="Background" Value="Tomato"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="20"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+        </Style>
+
+        <Style x:Key="TotalBlockStyle" TargetType="TextBlock">
+            <Setter Property="Height" Value="70"></Setter>
+            <Setter Property="Width" Value="150"></Setter>
+            <Setter Property="Margin" Value="11"></Setter>
+            <Setter Property="Background" Value="#00a884"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="20"></Setter>
+            <Setter Property="TextAlignment" Value="Center"></Setter>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="TaskGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.15*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#00a884">
+            <TextBlock x:Name="TotalProcessCount" Style="{DynamicResource TotalBlockStyle}"></TextBlock>
+            <TextBlock x:Name="TotalThreadsCount" Style="{DynamicResource TotalBlockStyle}"></TextBlock>
+            <TextBlock x:Name="TotalHandleCount" Style="{DynamicResource TotalBlockStyle}"></TextBlock>
+            <Button Style="{DynamicResource NEAstyle}"  Margin="59,0,17,0" Click="NewTaskButton_Click"> New Task</Button>
+            <Button Style="{DynamicResource NEAstyle}" Margin="29,15,37,15" Click="Button_Click" >End Task</Button>
+            <Button Style="{DynamicResource NEAstyle}" Click="BlackListButton_Click" >Add Black List</Button>
+        </StackPanel>
+        <ListView Grid.Row="1" x:Name="ListViewManager" Background="Tomato">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="TaskImages" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Width="20" Height="20" Source="{Binding Images}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="TaskName" Width="320" DisplayMemberBinding="{Binding ProcessName}"/>
+                    <GridViewColumn Header="TaskPath" Width="500" DisplayMemberBinding="{Binding FileName}"/>
+                    <GridViewColumn Header="HandleCount" Width="120" DisplayMemberBinding="{Binding HandleCount}"/>
+                    <GridViewColumn Header="ThreadCount" Width="120" DisplayMemberBinding="{Binding ThreadCount}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

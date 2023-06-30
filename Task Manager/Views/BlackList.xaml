@@ -1,0 +1,23 @@
+﻿<Window x:Class="Task_Manager.Views.BlackList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Task_Manager.Views"
+        mc:Ignorable="d"
+        Title="BlackList" Height="450" Width="1150">
+    <Grid>
+        <ListView x:Name="ListViewManager"  ItemsSource="{Binding GetBooks}" Background="Tomato">
+            <ListView.View>
+                <GridView >
+                    <GridViewColumn Header="TaskID"  Width="80" DisplayMemberBinding="{Binding Name}"  />
+                    <GridViewColumn Header="TaskName" Width="320" DisplayMemberBinding="{Binding Pages}" />
+                    <GridViewColumn Header="TaskPath" Width="500" DisplayMemberBinding="{Binding YearPress}" />
+                    <GridViewColumn Header="HandleCount" Width="120"  DisplayMemberBinding="{Binding YearPress}" />
+                    <GridViewColumn Header="ThreadCount" Width="120" DisplayMemberBinding="{Binding YearPress}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+</Window>

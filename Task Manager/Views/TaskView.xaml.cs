@@ -38,7 +38,7 @@ namespace Task_Manager.Views
         private void InitializeTimer()
         {
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(2);
+            timer.Interval = TimeSpan.FromSeconds(5);
             timer.Tick += Timer_Tick;
             timer.Start();
         }
@@ -78,51 +78,72 @@ namespace Task_Manager.Views
                 }
             
 
-            TotalProcessCount.Text = $"Toplam Süreç\n{processCount.ToString()}";
-                TotalHandleCount.Text = $"Toplam Kulp\n{handleCount.ToString()}";
-                TotalThreadsCount.Text = $"Toplam İş Parçacığı\n{threadsCount.ToString()}";
+            TotalProcessCount.Text = $"Total Process\n{processCount.ToString()}";
+                TotalHandleCount.Text = $"Total Handle\n{handleCount.ToString()}";
+                TotalThreadsCount.Text = $"Total Threads\n{threadsCount.ToString()}";
 
+            }
+            CheckBlacklistedProcesses();
+        }
+
+
+
+
+
+
+
+        private void CheckBlacklistedProcesses()
+        {
+            List<ProcessData> blacklistedProcesses = GetManager.Where(p => BlackList.GetBlacklistedProcesses().Contains(p.ProcessName)).ToList();
+            if (blacklistedProcesses.Count > 0)
+            {
+                foreach (ProcessData blacklistedProcess in blacklistedProcesses)
+                {
+                    Process process = Process.GetProcessesByName(blacklistedProcess.ProcessName).FirstOrDefault();
+                    if (process != null)
+                    {
+                        process.Kill();
+                        GetManager.Remove(blacklistedProcess);
+                    }
+                }
             }
         }
 
-        //private BitmapImage GetProcessImage(int processId)
-        //{
-        //    try
-        //    {
-        //        Process process = Process.GetProcessById(processId);
-        //        using (Icon icon = Icon.ExtractAssociatedIcon(process.MainModule?.FileName))
-        //        {
-        //            if (icon != null)
-        //            {
-        //                using (MemoryStream stream = new MemoryStream())
-        //                {
-        //                    // Convert the Icon to Bitmap
-        //                    Bitmap bitmap = icon.ToBitmap();
-        //                    bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-        //                    stream.Seek(0, SeekOrigin.Begin);
 
-        //                    // Create a BitmapImage from the stream
-        //                    BitmapImage bitmapImage = new BitmapImage();
-        //                    bitmapImage.BeginInit();
-        //                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-        //                    bitmapImage.StreamSource = stream;
-        //                    bitmapImage.EndInit();
-        //                    bitmapImage.Freeze();
 
-        //                    return bitmapImage;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Handle the error appropriately
-        //        Console.WriteLine("Error: " + ex.Message);
-        //    }
 
-        //    // Return a default image if no image is found or an error occurs
-        //    return new BitmapImage(new Uri("default_image.png", UriKind.Relative));
-        //}
+
+
+
+
+        private void EndTaskMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListViewManager.SelectedItems.Count > 0)
+            {
+                List<ProcessData> selectedProcesses = new List<ProcessData>();
+                foreach (var selectedItem in ListViewManager.SelectedItems)
+                {
+                    selectedProcesses.Add((ProcessData)selectedItem);
+                }
+
+                foreach (ProcessData selectedProcess in selectedProcesses)
+                {
+                    Process process = Process.GetProcessesByName(selectedProcess.ProcessName).FirstOrDefault();
+                    if (process != null)
+                    {
+                        process.Kill();
+                        GetManager.Remove(selectedProcess);
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+
 
 
         private void OpenWindow(int count)
@@ -153,20 +174,6 @@ namespace Task_Manager.Views
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (ListViewManager.SelectedItem is ProcessInfo selectedProcess)
-            {
-                try
-                {
-                    Process.GetProcessById(selectedProcess.ProcessId).Kill();
-                }
-                catch (System.Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
     }
     public class ProcessData
     {
@@ -174,7 +181,7 @@ namespace Task_Manager.Views
         public string FileName { get; set; }
         public int HandleCount { get; set; }
         public int ThreadCount { get; set; }
-        public BitmapImage Images { get; set; }
+        //public BitmapImage Images { get; set; }
     }
 }
 

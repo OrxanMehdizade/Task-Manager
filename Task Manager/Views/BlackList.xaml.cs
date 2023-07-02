@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,13 @@ namespace Task_Manager.Views
     /// </summary>
     public partial class BlackList : Window
     {
+        public ObservableCollection<ProcessData> GetBooks { get; } = new ObservableCollection<ProcessData>();
+
         public BlackList()
         {
             InitializeComponent();
+            ListViewManager.ItemsSource = GetBooks;
         }
+
     }
 }

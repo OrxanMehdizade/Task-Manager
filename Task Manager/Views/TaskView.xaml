@@ -36,9 +36,8 @@
             <TextBlock x:Name="TotalProcessCount" Style="{DynamicResource TotalBlockStyle}"></TextBlock>
             <TextBlock x:Name="TotalThreadsCount" Style="{DynamicResource TotalBlockStyle}"></TextBlock>
             <TextBlock x:Name="TotalHandleCount" Style="{DynamicResource TotalBlockStyle}"></TextBlock>
-            <Button Style="{DynamicResource NEAstyle}"  Margin="59,0,17,0" Click="NewTaskButton_Click"> New Task</Button>
-            <Button Style="{DynamicResource NEAstyle}" Margin="29,15,37,15" Click="Button_Click" >End Task</Button>
-            <Button Style="{DynamicResource NEAstyle}" Click="BlackListButton_Click" >Add Black List</Button>
+            <Button Style="{DynamicResource NEAstyle}"  Margin="189,0,17,0" Click="NewTaskButton_Click">New Task</Button>
+            <Button Style="{DynamicResource NEAstyle}" Click="BlackListButton_Click" Margin="68,0,0,0" >Add Black List</Button>
         </StackPanel>
         <ListView Grid.Row="1" x:Name="ListViewManager" Background="Tomato">
             <ListView.View>
@@ -56,6 +55,11 @@
                     <GridViewColumn Header="ThreadCount" Width="120" DisplayMemberBinding="{Binding ThreadCount}"/>
                 </GridView>
             </ListView.View>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="End Task" Click="EndTaskMenuItem_Click"  Background="Tomato" Foreground="White"  BorderThickness="0"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
         </ListView>
     </Grid>
 </Window>

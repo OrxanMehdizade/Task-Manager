@@ -7,14 +7,14 @@
         mc:Ignorable="d"
         Title="BlackList" Height="450" Width="1150">
     <Grid>
-        <ListView x:Name="ListViewManager"  ItemsSource="{Binding GetBooks}" Background="Tomato">
+        <ListView x:Name="ListViewManager" ItemsSource="{Binding GetBooks}" Background="Tomato">
             <ListView.View>
-                <GridView >
-                    <GridViewColumn Header="TaskID"  Width="80" DisplayMemberBinding="{Binding Name}"  />
-                    <GridViewColumn Header="TaskName" Width="320" DisplayMemberBinding="{Binding Pages}" />
-                    <GridViewColumn Header="TaskPath" Width="500" DisplayMemberBinding="{Binding YearPress}" />
-                    <GridViewColumn Header="HandleCount" Width="120"  DisplayMemberBinding="{Binding YearPress}" />
-                    <GridViewColumn Header="ThreadCount" Width="120" DisplayMemberBinding="{Binding YearPress}" />
+                <GridView>
+                    <GridViewColumn Header="TaskID" Width="80" DisplayMemberBinding="{Binding ProcessName}" />
+                    <GridViewColumn Header="TaskName" Width="320" DisplayMemberBinding="{Binding FileName}" />
+                    <GridViewColumn Header="TaskPath" Width="500" DisplayMemberBinding="{Binding TaskPath}" />
+                    <GridViewColumn Header="HandleCount" Width="120" DisplayMemberBinding="{Binding HandleCount}" />
+                    <GridViewColumn Header="ThreadCount" Width="120" DisplayMemberBinding="{Binding ThreadCount}" />
                 </GridView>
             </ListView.View>
         </ListView>

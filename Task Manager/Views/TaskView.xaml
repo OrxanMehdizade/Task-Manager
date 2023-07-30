@@ -43,11 +43,6 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="TaskImages" Width="80">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Width="20" Height="20" Source="{Binding Images}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="TaskName" Width="320" DisplayMemberBinding="{Binding ProcessName}"/>
                     <GridViewColumn Header="TaskPath" Width="500" DisplayMemberBinding="{Binding FileName}"/>

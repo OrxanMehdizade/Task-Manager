@@ -20,12 +20,12 @@ namespace Task_Manager.Views
     /// </summary>
     public partial class BlackList : Window
     {
-        public ObservableCollection<ProcessData> GetBooks { get; } = new ObservableCollection<ProcessData>();
+        public ObservableCollection<ProcessData> GetBlackList { get; } = new ObservableCollection<ProcessData>();
 
         public BlackList()
         {
             InitializeComponent();
-            ListViewManager.ItemsSource = GetBooks;
+            ListViewManager.ItemsSource = GetBlackList;
         }
 
     }

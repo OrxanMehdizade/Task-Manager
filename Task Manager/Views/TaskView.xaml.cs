@@ -64,8 +64,7 @@ namespace Task_Manager.Views
                         ProcessName = process.ProcessName,
                         FileName = process.MainModule?.FileName,
                         HandleCount = process.HandleCount,
-                        ThreadCount = process.Threads.Count,
-                        //Images = GetProcessImage(process.Id)
+                        ThreadCount = process.Threads.Count
                     });
 
                     processCount++;
@@ -83,7 +82,7 @@ namespace Task_Manager.Views
                 TotalThreadsCount.Text = $"Total Threads\n{threadsCount.ToString()}";
 
             }
-            CheckBlacklistedProcesses();
+           // CheckBlacklistedProcesses();
         }
 
 
@@ -92,22 +91,22 @@ namespace Task_Manager.Views
 
 
 
-        private void CheckBlacklistedProcesses()
-        {
-            List<ProcessData> blacklistedProcesses = GetManager.Where(p => BlackList.GetBlacklistedProcesses().Contains(p.ProcessName)).ToList();
-            if (blacklistedProcesses.Count > 0)
-            {
-                foreach (ProcessData blacklistedProcess in blacklistedProcesses)
-                {
-                    Process process = Process.GetProcessesByName(blacklistedProcess.ProcessName).FirstOrDefault();
-                    if (process != null)
-                    {
-                        process.Kill();
-                        GetManager.Remove(blacklistedProcess);
-                    }
-                }
-            }
-        }
+        //private void CheckBlacklistedProcesses()
+        //{
+        //    List<ProcessData> blacklistedProcesses = GetManager.Where(p => BlackList.GetBlacklistedProcesses().Contains(p.ProcessName)).ToList();
+        //    if (blacklistedProcesses.Count > 0)
+        //    {
+        //        foreach (ProcessData blacklistedProcess in blacklistedProcesses)
+        //        {
+        //            Process process = Process.GetProcessesByName(blacklistedProcess.ProcessName).FirstOrDefault();
+        //            if (process != null)
+        //            {
+        //                process.Kill();
+        //                GetManager.Remove(blacklistedProcess);
+        //            }
+        //        }
+        //    }
+        //}
 
 
 
@@ -156,10 +155,10 @@ namespace Task_Manager.Views
             }
             else if (count == 2)
             {
-                BlackList blackList = new BlackList();
-                Window.GetWindow(this);
-                blackList.Show();
-
+                //BlackList blackList = new BlackList();
+                //Window.GetWindow(this);
+                //blackList.Show();
+                MessageBox.Show("Tamamlanmıyıb");
             }
         }
 
@@ -181,7 +180,7 @@ namespace Task_Manager.Views
         public string FileName { get; set; }
         public int HandleCount { get; set; }
         public int ThreadCount { get; set; }
-        //public BitmapImage Images { get; set; }
+
     }
 }
 
